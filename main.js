@@ -15,17 +15,17 @@ module.exports.loop = function () {
     var builders = creepProto.findAllByRole('builder');
 
     if (harvesters.length < 2) {
-        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, MOVE], undefined, {role: 'harvester'});
+        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
     }
 
     if (upgraders.length < 3) {
-        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, MOVE], undefined, {role: 'upgrader'});
+        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
     }
 
     if (builders.length < 3) {
-        var newCreep = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, MOVE], undefined, {role: 'builder'});
+        var newCreep = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
         console.log('Spawning new builder: ' + newCreep);
     }
 
