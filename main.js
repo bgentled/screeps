@@ -9,7 +9,6 @@ Memory.energySource = energySource.id;
 
 module.exports.loop = function () {
     tools.clearMemory();
-    console.log('test');
     var harvesters = creepProto.findAllByRole('harvester');
     var upgraders = creepProto.findAllByRole('upgrader');
 
@@ -25,8 +24,6 @@ module.exports.loop = function () {
 
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-        //creepProto.init(creep);
-        //creepProto.talk(name);
         if (creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
         }
