@@ -10,7 +10,11 @@ var roleHarvester = {
         }
         else {
             console.log(creep.name + ' ist voll');
-            var targets = creep.room.find(FIND_STRUCTURES);
+            var targets = creep.room.find(FIND_STRUCTURES, {
+                filter: function (structure) {
+                    return structure.energy < structure.energyCapacity;
+                }
+            });
             //{
             //     filter: function (structure) {
             //         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
