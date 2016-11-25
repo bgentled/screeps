@@ -23,6 +23,7 @@ var roleUpgrader = {
         }
         else {
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                console.log(creep.name + ': gehe zu Source ' + source.id);
                 creep.moveTo(source);
             }
         }

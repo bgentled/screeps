@@ -5,7 +5,7 @@ var roleBuilder = {
             var sources = creep.room.find(FIND_SOURCES);
             source = sources[0];
         }
-        
+
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('harvesting');
@@ -26,6 +26,7 @@ var roleBuilder = {
         }
         else {
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                console.log(creep.name + ': gehe zu Source ' + source.id);
                 creep.moveTo(source);
             }
         }
