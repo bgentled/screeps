@@ -1,9 +1,13 @@
 var creepProto = require('creep');
 var roleHarvester = {
     /** @param {Creep} creep **/
-    run: function (creep) {
+    run: function (creep, source) {
+        if (source === undefined) {
+            var sources = creep.room.find(FIND_SOURCES);
+            source = sources[0];
+        }
+
         if (creep.carry.energy < creep.carryCapacity) {
-            var source = Game.getObjectById(Memory.energySource);
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }

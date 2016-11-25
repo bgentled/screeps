@@ -29,16 +29,31 @@ module.exports.loop = function () {
         console.log('Spawning new builder: ' + newCreep);
     }
 
+    var nearestEnergy = Game.getObjectById(Memory.energySource);
+    var sources = Game.spawns['Mainframe'].room.find(FIND_SOURCES);
+    for (var source in sources) {
+        if (source.id !== Memory.energySource) break;
+    }
+
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
         if (creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+            roleHarvester.run(creep, source);
         }
         if (creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
+            roleUpgrader.run(creep, source);
         }
         if (creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
+            roleBuilder.run(creep, nearestEnergy);
         }
     }
 };
+
+/*
+ Ideen:
+ - Builder wird auch repairer
+ - Energy Sources müssen fair aufgeteilt werden
+ -- Evtl. per creeps.length / 2 oder so...
+ - Sobald die Extensions fertig sind, kann man größere Creeps bauen
+ - Danach dann Container bauen
+ */
