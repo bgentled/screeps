@@ -9,7 +9,7 @@ Memory.energySource = energySource.id;
 
 module.exports.loop = function () {
     tools.clearMemory();
-
+    console.log('test');
     var harvesters = creepProto.findAllByRole('harvester');
     var upgraders = creepProto.findAllByRole('upgrader');
 
