@@ -32,7 +32,11 @@ module.exports.loop = function () {
     var nearestEnergy = Game.getObjectById(Memory.energySource);
     var sources = Game.spawns['Mainframe'].room.find(FIND_SOURCES);
     for (var source in sources) {
-        if (source.id !== Memory.energySource) break;
+        console.log('Vergleiche ' + source.id + ' mit ' + Memory.energySource);
+        if (source.id != Memory.energySource) {
+            console.log(source.id + ' weicht von ' + Memory.energySource + 'ab! Breche ab!');
+            break;
+        }
     }
 
     for (var name in Game.creeps) {
