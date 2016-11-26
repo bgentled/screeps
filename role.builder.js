@@ -18,9 +18,23 @@ var roleBuilder = {
         if (creep.memory.building) {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if (targets.length > 0) {
+                // BUILD structures
                 var target = targets[0];
                 if (creep.build(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
+                }
+            } else {
+                // REPAIR structures!
+                var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                    filter: function (structure) {
+                        // nur Strassen: structure.structureType === STRUCTURE_ROAD
+                        return (structure.hits < structure.hitsMax / 3);
+                    }
+                });
+                if (target) {
+                    if (creep.repair(target) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
                 }
             }
         }
