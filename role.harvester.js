@@ -43,7 +43,7 @@ var roleHarvester = {
 
     /** @param {Creep|String} creep */
     unassignSource: function (creep) {
-        if (creep instanceof String) {
+        if (typeof creep == 'string') {
             for (var source in Memory.sources) {
                 Memory.sources[source].harvesters = _.without(Memory.sources[source].harvesters, creep);
             }
