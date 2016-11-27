@@ -43,20 +43,19 @@ var creepFunctions = {
         return false;
     },
 
-    findAllByRole    : function (role) {
+    findAllByRole: function (role) {
         var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role);
         return creeps;
-    }
-    ,
+    },
+
     findNearestSource: function () {
         var spawn = Game.spawns[config.mainSpawn];
         return spawn.pos.findClosestByRange(FIND_SOURCES);
-    }
-    ,
-    getEnergy        : function (creep, source) {
-        var target = null;
+    },
+
+    getEnergy: function (creep, source) {
         // PRIORITY 1: Containers
-        target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: function (structure) {
                 return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
             }
@@ -87,8 +86,7 @@ var creepFunctions = {
                 creep.say('No Energy :(');
             }
         }
-    }
-    ,
+    },
 
     calculateBodyParts: function () {
         var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
