@@ -37,7 +37,7 @@ var creep = {
             bodyParts.push(WORK);
         }
 
-        var carryParts = Math.floor(
+        var carryParts = Math.ceil(
             (maxEnergy - (workParts * 100)) / 2 / 50
         );
         for (var i = 0; i < carryParts; i++) {
