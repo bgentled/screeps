@@ -38,7 +38,7 @@ var creep = {
             (maxEnergy - (workParts * 100)) / 2 / 50
         );
         var moveParts = Math.floor(
-            (maxEnergy - (workParts * 100) - (carryParts * 50)) / 2 / 50
+            (maxEnergy - (workParts * 100) - (carryParts * 50)) / 50
         );
         console.log(maxEnergy, workParts, carryParts, moveParts);
     }
