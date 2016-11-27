@@ -1,7 +1,7 @@
 var config = {
     mainSpawn    : 'Mainframe',
-    maxHarvesters: 3,
-    maxBuilder   : 4,
+    maxHarvesters: 4,
+    maxBuilder   : 3,
     maxUpgrader  : 2
 };
 
