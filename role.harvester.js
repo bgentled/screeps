@@ -7,23 +7,29 @@ var roleHarvester = {
             source = sources[0];
         }
 
-        if (creep.carry.energy < creep.carryCapacity) {
+        if (!creep.memory.harvesting && creep.carry.energy == 0) {
+            creep.memory.harvesting = true;
+            creep.say('Harvesting');
+        }
+        if (creep.memory.harvesting && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.harvesting = false;
+            creep.say('Transfering');
+        }
+
+        if (creep.memory.harvesting) {
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }
-        }
-        else {
+        } else {
+            // TODO: container befüllen, erst dann spawn etc
+
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: function (structure) {
-                    return structure.energy < structure.energyCapacity;
+                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                        structure.energy < structure.energyCapacity;
                 }
             });
-            //{
-            //     filter: function (structure) {
-            //         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-            //             structure.energy < structure.energyCapacity;
-            //     }
-            // }
+
             if (targets.length > 0) {
                 if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
