@@ -16,6 +16,7 @@ var tools = {
         var roleHarvester = require('role.harvester');
         for (var creepName in Game.creeps) {
             roleHarvester.unassignSource(Game.creeps[creepName]);
+            console.log('Unassigning ', creepName);
         }
     }
 };
