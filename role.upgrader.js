@@ -1,4 +1,3 @@
-var creepFunctions = require('creepFunctions');
 var roleUpgrader = {
     /** @param {Creep} creep **/
     run: function (creep, source) {
@@ -11,6 +10,7 @@ var roleUpgrader = {
             creep.say('upgrading');
         }
 
+        var creepFunctions = require('creepFunctions');
         if (creep.memory.working) {
             var repairing = creepFunctions.repairNearest(creep);
             if (!repairing) {
@@ -23,7 +23,6 @@ var roleUpgrader = {
         }
         else {
             creep.say('Energying');
-            var creepFunctions = require('creepFunctions');
             creepFunctions.getEnergy(creep, source);
         }
     }
