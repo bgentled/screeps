@@ -25,12 +25,16 @@ var roleUpgrader = {
                 }
             });
             if (target !== null) {
-                creep.say('Reparing');
-                if (!creep.pos.isNearTo(target)) creep.moveTo(target);
+                if (!creep.pos.isNearTo(target)) {
+                    creep.say('Reparing');
+                    creep.moveTo(target);
+                }
                 else creep.repair(target);
             } else {
-                creep.say('Upgrading');
-                if (!creep.pos.inRangeTo(creep.room.controller, 3)) creep.moveTo(creep.room.controller);
+                if (!creep.pos.inRangeTo(creep.room.controller, 3)) {
+                    creep.say('Upgrading');
+                    creep.moveTo(creep.room.controller);
+                }
                 else creep.upgradeController(creep.room.controller)
             }
         }
