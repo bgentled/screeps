@@ -1,32 +1,58 @@
 var config = require('config');
 var creepFunctions = {
-    init             : function (creep) {
+    init   : function (creep) {
         if (creep instanceof Creep) {
             this.creep = creep;
             console.log("Creep initiated");
         }
     },
-    talk             : function (text) {
-        if (!this.creep) return false;
-        this.creep.say(text)
-    },
-    harvest          : function () {
+    harvest: function () {
 
     },
-    upgrade          : function () {
+    upgrade: function () {
 
     },
-    repair           : function () {
-
+    repair : function (creep, target) {
+        if (!creep.pos.inRangeTo(target, 3)) {
+            creep.say('Reparing');
+            creep.moveTo(target);
+        }
+        else creep.repair(target);
     },
+
+    repairNearest: function (creep, repairWalls) {
+        if (repairWalls === undefined) repairWalls = false;
+        var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: function (structure) {
+                switch (structure.structureType) {
+                    case STRUCTURE_WALL:
+                        if (repairWalls) {
+                            if (structure.hits < structure.hitsMax / 1000) return true;
+                        }
+                        return false;
+                        break;
+                    default:
+                        if (structure.hits < structure.hitsMax / 3) return true;
+                }
+            }
+        });
+        if (target !== null) {
+            this.repair(creep, target);
+            return true;
+        }
+        return false;
+    },
+
     findAllByRole    : function (role) {
         var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role);
         return creeps;
-    },
+    }
+    ,
     findNearestSource: function () {
         var spawn = Game.spawns[config.mainSpawn];
         return spawn.pos.findClosestByRange(FIND_SOURCES);
-    },
+    }
+    ,
     getEnergy        : function (creep, source) {
         var target = null;
         // PRIORITY 1: Containers
@@ -61,7 +87,8 @@ var creepFunctions = {
                 creep.say('No Energy :(');
             }
         }
-    },
+    }
+    ,
 
     calculateBodyParts: function () {
         var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;

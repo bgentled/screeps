@@ -1,3 +1,4 @@
+var creepFunctions = require('creepFunctions');
 var roleUpgrader = {
     /** @param {Creep} creep **/
     run: function (creep, source) {
@@ -11,26 +12,8 @@ var roleUpgrader = {
         }
 
         if (creep.memory.working) {
-            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: function (structure) {
-                    // nur Strassen: structure.structureType === STRUCTURE_ROAD
-                    switch (structure.structureType) {
-                        case STRUCTURE_WALL:
-                            //if (structure.hits < structure.hitsMax / 1000) return true;
-                            return false;
-                            break;
-                        default:
-                            if (structure.hits < structure.hitsMax / 3) return true;
-                    }
-                }
-            });
-            if (target !== null) {
-                if (!creep.pos.isNearTo(target)) {
-                    creep.say('Reparing');
-                    creep.moveTo(target);
-                }
-                else creep.repair(target);
-            } else {
+            var repairing = creepFunctions.repairNearest(creep);
+            if (!repairing) {
                 if (!creep.pos.inRangeTo(creep.room.controller, 3)) {
                     creep.say('Upgrading');
                     creep.moveTo(creep.room.controller);
