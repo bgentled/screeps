@@ -25,7 +25,7 @@ var roleUpgrader = {
             });
             if (target !== null) {
                 creep.say('Reparing');
-                if (!creep.pos.isNearTo(target)) moveTo(target);
+                if (!creep.pos.isNearTo(target)) creep.moveTo(target);
                 else creep.repair(target);
             } else {
                 creep.say('Upgrading');
