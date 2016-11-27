@@ -73,9 +73,9 @@ module.exports.loop = function () {
 
 /*
  Ideen:
- - Builder wird auch repairer
- OK Energy Sources müssen fair aufgeteilt werden
- -- Evtl. per creeps.length / 2 oder so...
- - Sobald die Extensions fertig sind, kann man größere Creeps bauen
- - Danach dann Container bauen
+ Energy Sources auf Harvester verteilen
+
+ Container bei Energy Sources bieten mehr Fläche zum Abholen
+ Nur Harvester an Energy Sources, ca. 3 per Source
+ Alle anderen gehen zu Containern
  */
