@@ -31,17 +31,17 @@ module.exports.loop = function () {
             var bodyParts = creepProto.calculateBodyParts();
             if (harvesters.length < config.maxHarvesters) {
                 var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'harvester'});
-                console.log('Spawning new harvester: ' + newCreep, bodyParts);
+                console.log('Spawning new harvester: ' + newCreep + ';   ', bodyParts);
             }
 
             if (builders.length < config.maxBuilder) {
                 var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'builder'});
-                console.log('Spawning new builder: ' + newCreep, bodyParts);
+                console.log('Spawning new builder: ' + newCreep + ';   ', bodyParts);
             }
 
             if (upgraders.length < config.maxUpgrader) {
                 var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'upgrader'});
-                console.log('Spawning new upgrader: ' + newCreep, bodyParts);
+                console.log('Spawning new upgrader: ' + newCreep + ';   ', bodyParts);
             }
         }
     }
