@@ -41,6 +41,7 @@ var creep = {
         var bodyParts = [];
         for (var i = 0; i < workParts.length; i++) {
             bodyParts.push("work");
+            console.log('work');
         }
         console.log(JSON.stringify(bodyParts));
     }
