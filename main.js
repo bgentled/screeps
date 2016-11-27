@@ -9,6 +9,7 @@ var energySource = creepFunctions.findNearestSource();
 Memory.energySource = energySource.id;
 if (Memory.sources === undefined) Memory.sources = {};
 if (Memory.stats === undefined) Memory.stats = {};
+if (Memory.spawnBlock === undefined) Memory.spawnBlock = false;
 
 module.exports.loop = function () {
     tools.clearMemory();
@@ -24,6 +25,9 @@ module.exports.loop = function () {
     Memory.stats.numBuilders = builders.length;
 
     console.log('Harvesters: ' + Memory.stats.numHarvesters + ', Upgraders: ' + Memory.stats.numUpgraders + ', Builders: ' + Memory.stats.numBuilders);
+    if (Memory.stats.numHarvesters < config.maxHarvesters || Memory.stats.numUpgraders < config.maxUpgrader || Memory.stats.numBuilders < config.maxBuilder) {
+        Memory.spawnBlock = true;
+    } else Memory.spawnBlock = false;
 
     if (spawn.spawning === null) {
         var bodyParts = creepFunctions.calculateBodyParts();

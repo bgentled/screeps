@@ -36,7 +36,7 @@ var creepFunctions = {
             }
         });
         // PRIORITY 2: Spawns / Extensions
-        if (target === null) {
+        if (target === null && !Memory.spawnBlock) {
             target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
                     return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
