@@ -1,7 +1,58 @@
 var creepProto = require('creep');
 var roleHarvester = {
+    /** @param {Creep} creep *
+     * @param {Source} source
+     */
+    assignSource: function (creep, source) {
+        if (creep.memory.source !== undefined) return Game.getObjectById(creep.memory.source);
+
+        var sources = creep.room.find(FIND_SOURCES);
+        if (source !== undefined) {
+            if (Memory.sources[source.id] === undefined) {
+                Memory.sources[source.id] = {harvesters: []};
+            }
+            Memory.sources[source.id].harvesters.push(creep.name);
+            creep.memory.source = source.id;
+            return source;
+        } else {
+            for (var s in sources) {
+                var source = sources[s];
+                if (Memory.sources[source.id] === undefined) {
+                    Memory.sources[source.id] = {harvesters: []};
+                }
+
+                if (Memory.sources[source.id].harvesters.length < 2) {
+                    Memory.sources[source.id].harvesters.push(creep.name);
+                    creep.memory.source = source.id;
+                    return source;
+                }
+            }
+        }
+        // Fail save, assign nearest source
+        return this.assignSource(creep, creep.pos.findClosestByRange(FIND_SOURCES));
+    },
+
+    getSource: function (creep) {
+        if (creep.memory.source === undefined) var source = this.assignSource(creep);
+        else source = Game.getObjectById(creep.memory.source);
+
+        return source;
+    },
+
+    unassignSource: function (creep) {
+        if (creep.memory.source !== undefined) {
+            var source = Game.getObjectById(creep.memory.source);
+            Memory.sources[source.id].creeps = _.without(Memory.sources[source.id].creeps, creep.name);
+            creep.memory.source = undefined;
+        }
+        return true;
+    },
+
     /** @param {Creep} creep **/
     run: function (creep, source) {
+        // find my source
+        // if not assign, do it
+
         if (source === undefined) {
             var sources = creep.room.find(FIND_SOURCES);
             source = sources[0];

@@ -7,6 +7,7 @@ var creepProto = require('creep');
 
 var energySource = creepProto.findNearestSource();
 Memory.energySource = energySource.id;
+if (Memory.sources === undefined) Memory.sources = {};
 
 module.exports.loop = function () {
     tools.clearMemory();
