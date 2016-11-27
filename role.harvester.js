@@ -42,7 +42,7 @@ var roleHarvester = {
     unassignSource: function (creep) {
         if (creep.memory.source !== undefined) {
             var source = Game.getObjectById(creep.memory.source);
-            Memory.sources[source.id].creeps = _.without(Memory.sources[source.id].creeps, creep.name);
+            Memory.sources[source.id].harvesters = _.without(Memory.sources[source.id].harvesters, creep.name);
             creep.memory.source = undefined;
         }
         return true;
