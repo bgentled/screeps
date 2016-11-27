@@ -42,14 +42,14 @@ var roleBuilder = {
         }
         else { // TODO: ausgliedern in getEnergy. 2. Schritt, auslagern in creep.js
             // PRIORITY 1: Containers
-            /*
-             target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-             filter: function (structure) {
-             return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
-             }
-             });
-             console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
 
+            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: function (structure) {
+                    return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
+                }
+            });
+            console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
+            /*
              // PRIORITY 2: Spawns / Extensions
              if (target === null) {
              creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
