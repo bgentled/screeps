@@ -42,22 +42,24 @@ var roleBuilder = {
         }
         else { // TODO: ausgliedern in getEnergy. 2. Schritt, auslagern in creep.js
             // PRIORITY 1: Containers
-            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
-                }
-            });
-            console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
+            /*
+             target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+             filter: function (structure) {
+             return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
+             }
+             });
+             console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
 
-            // PRIORITY 2: Spawns / Extensions
-            if (target === null) {
-                creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                    filter: function (structure) {
-                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
-                    }
-                });
-                console.log(creep.name, 'Gefundene Structures... ', target);
-            }
+             // PRIORITY 2: Spawns / Extensions
+             if (target === null) {
+             creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+             filter: function (structure) {
+             return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+             }
+             });
+             console.log(creep.name, 'Gefundene Structures... ', target);
+             }
+             */
             if (target !== null) {
                 // if (!creep.pos.isNearTo(target)) {
                 //     var res = creep.moveTo(target);
@@ -66,6 +68,7 @@ var roleBuilder = {
                 // else creep.withdraw(target, RESOURCE_ENERGY);
                 if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) creep.moveTo(24, 14);
             } else {
+
                 // PRIORITY 3: Sources
                 console.log(creep.name, 'Nichts zum abzapfen gefunden, gehe harvesten... :(');
                 if (source === undefined) {
