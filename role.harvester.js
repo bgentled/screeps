@@ -22,16 +22,16 @@ var roleHarvester = {
         } else {
             // TODO: container befüllen, erst dann spawn etc
 
-            var targets = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
                     return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                         structure.energy < structure.energyCapacity;
                 }
             });
-            console.log(targets);
-            if (targets.length > 0) {
-                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0]);
+
+            if (target !== null) {
+                if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
                 }
             }
         }
