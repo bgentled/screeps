@@ -39,9 +39,8 @@ var creep = {
             (maxEnergy - (workParts * 100) - (carryParts * 50)) / 50
         );
         var bodyParts = [];
-        for (var i = 0; i < workParts.length; i++) {
-            bodyParts.push("work");
-            console.log('work');
+        for (var i = 0; i < workParts; i++) {
+            bodyParts.push(WORK);
         }
         console.log(JSON.stringify(bodyParts));
     }
