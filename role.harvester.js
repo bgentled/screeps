@@ -51,12 +51,10 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function (creep, source) {
-        // find my source
-        // if not assign, do it
-
         if (source === undefined) {
-            var sources = creep.room.find(FIND_SOURCES);
-            source = sources[0];
+            //var sources = creep.room.find(FIND_SOURCES);
+            //source = sources[0];
+            source = this.getSource(creep);
         }
 
         if (!creep.memory.harvesting && creep.carry.energy == 0) {
