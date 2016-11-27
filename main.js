@@ -8,15 +8,22 @@ var creepFunctions = require('creepFunctions');
 var energySource = creepFunctions.findNearestSource();
 Memory.energySource = energySource.id;
 if (Memory.sources === undefined) Memory.sources = {};
+if (Memory.stats === undefined) Memory.stats = {};
 
 module.exports.loop = function () {
     tools.clearMemory();
-
     var spawn = Game.spawns['Mainframe'];
+
     var harvesters = creepFunctions.findAllByRole('harvester');
+    Memory.stats.numHarvesters = harvesters.length;
+
     var upgraders = creepFunctions.findAllByRole('upgrader');
+    Memory.stats.numUpgraders = upgraders.length;
+
     var builders = creepFunctions.findAllByRole('builder');
-    console.log('Harvesters: ' + harvesters.length + ', Upgraders: ' + upgraders.length + ', Builders: ' + builders.length);
+    Memory.stats.numBuilders = builders.length;
+
+    console.log('Harvesters: ' + Memory.stats.numHarvesters + ', Upgraders: ' + Memory.stats.numUpgraders + ', Builders: ' + Memory.stats.numBuilders);
 
     if (spawn.spawning === null) {
         var bodyParts = creepFunctions.calculateBodyParts();
