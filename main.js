@@ -16,21 +16,26 @@ module.exports.loop = function () {
 
     // EMERGENCY HARVESTER!
     if (harvesters.length < 2) {
+        // Change all roles to harvester
+        for (var creepName in Game.creeps) {
+            Game.creeps[creepName].memory.role = 'harvester';
+        }
+        // Create new cheap harvester
         var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
     } else if (harvesters.length < config.maxHarvesters) {
         // NORMAL HARVESTER
-        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'harvester'});
+        var newName = Game.spawns[config.mainSpawn].createCreep(config.harvesterBodyParts, undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
     }
 
     if (upgraders.length < config.maxUpgrader) {
-        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
+        var newName = Game.spawns[config.mainSpawn].createCreep(config.upgraderBodyParts, undefined, {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
     }
 
     if (builders.length < config.maxBuilder) {
-        var newCreep = Game.spawns[config.mainSpawn].createCreep([WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'builder'});
+        var newCreep = Game.spawns[config.mainSpawn].createCreep(config.builderBodyparts, undefined, {role: 'builder'});
         console.log('Spawning new builder: ' + newCreep);
     }
 
