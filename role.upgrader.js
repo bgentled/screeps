@@ -16,7 +16,8 @@ var roleUpgrader = {
                     // nur Strassen: structure.structureType === STRUCTURE_ROAD
                     switch (structure.structureType) {
                         case STRUCTURE_ROAD:
-                            if (structure.hits < structure.hitsMax / 1000) return true;
+                            //if (structure.hits < structure.hitsMax / 1000) return true;
+                            return false;
                             break;
                         default:
                             if (structure.hits < structure.hitsMax / 3) return true;
