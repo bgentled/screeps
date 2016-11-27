@@ -15,7 +15,6 @@ var roleHarvester = {
             creep.memory.harvesting = false;
             creep.say('Transfering');
         }
-
         if (creep.memory.harvesting) {
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
@@ -29,13 +28,14 @@ var roleHarvester = {
                         structure.energy < structure.energyCapacity;
                 }
             });
-
+            console.log(targets);
             if (targets.length > 0) {
                 if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
                 }
             }
         }
+
     }
 };
 
