@@ -4,7 +4,7 @@ var roleBuilder = {
         var target = null;
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('Getting Energy');
+            creep.say('Energying');
         }
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
@@ -26,7 +26,7 @@ var roleBuilder = {
                     filter: function (structure) {
                         // nur Strassen: structure.structureType === STRUCTURE_ROAD
                         switch (structure.structureType) {
-                            case STRUCTURE_ROAD:
+                            case STRUCTURE_WALL:
                                 if (structure.hits < structure.hitsMax / 1000) return true;
                                 break;
                             default:
