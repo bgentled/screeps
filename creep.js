@@ -40,7 +40,7 @@ var creep = {
         );
         var bodyParts = [];
         for (var i = 0; i < workParts.length; i++) {
-            bodyParts.push(WORK);
+            bodyParts.push("work");
         }
         console.log(bodyParts);
     }
