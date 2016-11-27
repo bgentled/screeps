@@ -21,9 +21,8 @@ var roleUpgrader = {
             }
         }
         else {
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source);
-            }
+            var creepFunctions = require('creepFunctions');
+            creepFunctions.getEnergy(creep, source);
         }
     }
 };

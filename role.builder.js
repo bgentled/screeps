@@ -42,7 +42,7 @@ var roleBuilder = {
         }
         else {
             var creepFunctions = require('creepFunctions');
-            creepFunctions.getEnergy(creep);
+            creepFunctions.getEnergy(creep, source);
         }
     }
 };
