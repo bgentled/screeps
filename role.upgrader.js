@@ -19,7 +19,7 @@ var roleUpgrader = {
                             if (structure.hits < structure.hitsMax / 1000) return true;
                             break;
                         default:
-                            if (structure.hits < structure.hitsMax) return true;
+                            if (structure.hits < structure.hitsMax / 3) return true;
                     }
                 }
             });
