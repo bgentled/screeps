@@ -5,6 +5,7 @@ var roleHarvester = {
      */
     assignSource: function (creep, source) {
         if (creep.memory.source !== undefined) return Game.getObjectById(creep.memory.source);
+        if (creep.memory.role !== 'harvester') return false;
 
         var sources = creep.room.find(FIND_SOURCES);
         if (source !== undefined) {
@@ -21,7 +22,7 @@ var roleHarvester = {
                     Memory.sources[source.id] = {harvesters: []};
                 }
 
-                if (Memory.sources[source.id].harvesters.length < 2) {
+                if (Memory.sources[source.id].harvesters.length < 3) {
                     Memory.sources[source.id].harvesters.push(creep.name);
                     creep.memory.source = source.id;
                     return source;
