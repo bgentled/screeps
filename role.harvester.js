@@ -49,6 +49,28 @@ var roleHarvester = {
         return true;
     },
 
+    transferEnergy: function (creep) {
+        var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: function (structure) {
+                return (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity);
+            }
+        });
+        if (target === null) {
+            target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                filter: function (structure) {
+                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                        structure.energy < structure.energyCapacity;
+                }
+            });
+        }
+
+        if (target !== null) {
+            if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
+            }
+        } else creep.say('No Target :(');
+    },
+
     /** @param {Creep} creep **/
     run: function (creep, source) {
         if (source === undefined) {
@@ -66,24 +88,10 @@ var roleHarvester = {
             creep.say('Transfering');
         }
         if (creep.memory.harvesting) {
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source);
-            }
+            if (!creep.pos.isNearTo(source)) creep.moveTo(source);
+            else creep.harvest(source);
         } else {
-            // TODO: container befüllen, erst dann spawn etc
-
-            var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                        structure.energy < structure.energyCapacity;
-                }
-            });
-
-            if (target !== null) {
-                if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target);
-                }
-            } else creep.say('No Target :(');
+            this.transferEnergy(creep);
         }
 
     }
