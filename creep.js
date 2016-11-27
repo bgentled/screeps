@@ -42,7 +42,7 @@ var creep = {
         for (var i = 0; i < workParts.length; i++) {
             bodyParts.push("work");
         }
-        console.log(bodyParts);
+        console.log(JSON.stringify(bodyParts));
     }
 };
 
