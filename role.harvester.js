@@ -4,6 +4,7 @@ var roleHarvester = {
      * @param {Source} source
      */
     assignSource: function (creep, source) {
+        // TODO: irgendwann verschiedene Räume bedenken. Entweder Raum direkt angeben oder dynamisch berechnen
         if (creep.memory.source !== undefined) return Game.getObjectById(creep.memory.source);
         if (creep.memory.role !== 'harvester') return false;
 
@@ -40,8 +41,14 @@ var roleHarvester = {
         return source;
     },
 
+    /** @param {Creep|String} creep */
     unassignSource: function (creep) {
-        if (creep.memory.source !== undefined) {
+        if (creep instanceof String) {
+            for (var source in Memory.sources) {
+                Memory.sources[source].harvesters = _.without(Memory.sources[source].harvesters, creep);
+            }
+            return true;
+        } else if (creep.memory.source !== undefined) {
             var source = Game.getObjectById(creep.memory.source);
             Memory.sources[source.id].harvesters = _.without(Memory.sources[source.id].harvesters, creep.name);
             creep.memory.source = undefined;
