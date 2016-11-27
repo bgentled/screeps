@@ -17,6 +17,7 @@ module.exports.loop = function () {
     var spawn = Game.spawns['Mainframe'];
 
     if (spawn.spawning === null) {
+        var bodyParts = creepProto.calculateBodyParts();
         // EMERGENCY HARVESTER!
         if (harvesters.length < 2) {
             // Change all roles to harvester
@@ -26,9 +27,8 @@ module.exports.loop = function () {
             // Create new cheap harvester
             var newCreep = spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
             console.log('Spawning new harvester: ' + newCreep);
-        } else {
+        } else if (spawn.canCreateCreep(bodyParts)) {
             // NORMAL SPAWNING
-            var bodyParts = creepProto.calculateBodyParts();
             if (harvesters.length < config.maxHarvesters) {
                 var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'harvester'});
                 console.log('Spawning new harvester: ' + newCreep + ';   ', bodyParts);
