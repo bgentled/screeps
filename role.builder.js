@@ -5,7 +5,7 @@ var roleBuilder = {
         var target = null;
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('Energying');
+            creep.say('Energy++');
         }
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
@@ -32,7 +32,10 @@ var roleBuilder = {
                         }
                     });
                     if (target !== null) {
-                        if (!creep.pos.isNearTo(target)) creep.moveTo(target);
+                        if (!creep.pos.isNearTo(target)) {
+                            creep.say('Tower++');
+                            creep.moveTo(target);
+                        }
                         else creep.transfer(target, RESOURCE_ENERGY);
                     }
                 }

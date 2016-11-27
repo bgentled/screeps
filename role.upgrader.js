@@ -3,11 +3,10 @@ var roleUpgrader = {
     run: function (creep, source) {
         if (creep.memory.working && creep.carry.energy == 0) {
             creep.memory.working = false;
-            creep.say('harvesting');
+            creep.say('Harvesting');
         }
         if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
             creep.memory.working = true;
-            creep.say('upgrading');
         }
 
         var creepFunctions = require('creepFunctions');
@@ -22,7 +21,7 @@ var roleUpgrader = {
             }
         }
         else {
-            creep.say('Energying');
+            creep.say('Energy++');
             creepFunctions.getEnergy(creep, source);
         }
     }
