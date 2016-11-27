@@ -33,7 +33,7 @@ var creep = {
         var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
         var bodyParts = [];
         // Add Work Parts
-        var workParts = Math.floor(maxEnergy / 2 / 100);
+        var workParts = Math.ceil(maxEnergy / 2 / 100);
         for (var i = 0; i < workParts; i++) {
             bodyParts.push(WORK);
         }
