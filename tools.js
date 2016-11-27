@@ -18,6 +18,10 @@ var tools = {
             roleHarvester.unassignSource(Game.creeps[creepName]);
             console.log('Unassigning ', creepName);
         }
+        for (var sourceId in Memory.sources) {
+            Memory.sources[sourceId].harvesters = [];
+            console.log('Emptying source ', sourceId);
+        }
     }
 };
 
