@@ -47,7 +47,7 @@ var roleBuilder = {
                     return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
                 }
             });
-            console.log(creep.name, 'Gefundene Container... ', target);
+            console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
 
             // PRIORITY 2: Spawns / Extensions
             if (target === null) {
