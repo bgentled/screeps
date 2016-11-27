@@ -59,12 +59,11 @@ var roleBuilder = {
                 console.log(creep.name, 'Gefundene Structures... ', target);
             }
             if (target !== null) {
-                // if (!creep.pos.isNearTo(target)) {
-                //     var res = creep.moveTo(target);
-                //     console.log(creep.name, 'Bewege mich zum Ziel... ', res);
-                // }
-                // else creep.withdraw(target, RESOURCE_ENERGY);
-                if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) creep.moveTo(24, 14);
+                if (!creep.pos.isNearTo(target)) {
+                    var res = creep.moveTo(target);
+                    console.log(creep.name, 'Bewege mich zum Ziel... ', res);
+                }
+                else creep.withdraw(target, RESOURCE_ENERGY);
             } else {
 
                 // PRIORITY 3: Sources
