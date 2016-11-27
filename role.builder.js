@@ -28,7 +28,7 @@ var roleBuilder = {
                 var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: function (structure) {
                         // nur Strassen: structure.structureType === STRUCTURE_ROAD
-                        switch (strcuture.structureType) {
+                        switch (structure.structureType) {
                             case STRUCTURE_ROAD:
                                 if (structure.hits < structure.hitsMax / 100) return true;
                                 break;
