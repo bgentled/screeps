@@ -10,6 +10,9 @@ Memory.energySource = energySource.id;
 
 module.exports.loop = function () {
     tools.clearMemory();
+
+    creepProto.calculateBodyParts();
+
     var harvesters = creepProto.findAllByRole('harvester');
     var upgraders = creepProto.findAllByRole('upgrader');
     var builders = creepProto.findAllByRole('builder');
