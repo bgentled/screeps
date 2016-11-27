@@ -57,16 +57,20 @@ var roleHarvester = {
     },
 
     transferEnergy: function (creep) {
-        var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        var target = null;
+        // PRIORITY 1: Fill all Spawns & Extensions
+        target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (structure) {
-                return (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity);
+                return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                    structure.energy < structure.energyCapacity;
             }
         });
+
+        // PRIORITY 2: Fill all Containers
         if (target === null) {
-            target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                        structure.energy < structure.energyCapacity;
+                    return (structure.structureType == STRUCTURE_CONTAINER && _.sum(structure.store) < structure.storeCapacity);
                 }
             });
         }

@@ -4,7 +4,7 @@ var roleBuilder = {
         var target = null;
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('harvesting');
+            creep.say('Getting Energy');
         }
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
@@ -47,6 +47,8 @@ var roleBuilder = {
                     return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
                 }
             });
+            console.log('Gefundene Container... ', target);
+
             // PRIORITY 2: Spawns / Extensions
             if (target === null) {
                 creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
@@ -54,12 +56,14 @@ var roleBuilder = {
                         return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
                     }
                 });
+                console.log('Gefundene Structures... ', target);
             }
             if (target !== null) {
                 if (!creep.pos.isNearTo(target)) creep.moveTo(target);
                 else creep.withdraw(target, RESOURCE_ENERGY);
             } else {
                 // PRIORITY 3: Sources
+                console.log('Nichts zum abzapfen gefunden, gehe harvesten... :(');
                 if (source === undefined) {
                     source = creep.pos.findClosestByRange(RESOURCE_ENERGY);
                 }
