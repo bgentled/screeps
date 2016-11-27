@@ -49,17 +49,15 @@ var roleBuilder = {
                 }
             });
             console.log(creep.name, 'Gefundene Container... ', target, target.pos.x, target.pos.y);
-            /*
-             // PRIORITY 2: Spawns / Extensions
-             if (target === null) {
-             creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-             filter: function (structure) {
-             return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
-             }
-             });
-             console.log(creep.name, 'Gefundene Structures... ', target);
-             }
-             */
+            // PRIORITY 2: Spawns / Extensions
+            if (target === null) {
+                creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: function (structure) {
+                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+                    }
+                });
+                console.log(creep.name, 'Gefundene Structures... ', target);
+            }
             if (target !== null) {
                 // if (!creep.pos.isNearTo(target)) {
                 //     var res = creep.moveTo(target);
@@ -81,10 +79,6 @@ var roleBuilder = {
                 } else {
                     creep.say('No Energy :(');
                 }
-            }
-
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(source);
             }
         }
     }
