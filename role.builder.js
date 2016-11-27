@@ -33,7 +33,7 @@ var roleBuilder = {
                     });
                     if (target !== null) {
                         if (!creep.pos.isNearTo(target)) creep.moveTo(target);
-                        else creep.transfer(target);
+                        else creep.transfer(target, RESOURCE_ENERGY);
                     }
                 }
             }
