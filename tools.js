@@ -1,5 +1,5 @@
 var tools = {
-    clearMemory: function () {
+    clearMemory       : function () {
         for (var name in Memory.creeps) {
             if (!Game.creeps[name]) {
                 if (Memory.creeps[name] !== undefined && Memory.creeps[name].role == 'harvester') {
@@ -10,6 +10,12 @@ var tools = {
                 delete Memory.creeps[name];
                 console.log('Clearing non-existing creep memory:', name);
             }
+        }
+    },
+    unassignAllSources: function () {
+        var roleHarvester = require('role.harvester');
+        for (var creepName in Game.creeps) {
+            roleHarvester.unassignSource(Game.creeps[creepName]);
         }
     }
 };
