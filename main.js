@@ -11,10 +11,11 @@ Memory.energySource = energySource.id;
 module.exports.loop = function () {
     tools.clearMemory();
 
+    var spawn = Game.spawns['Mainframe'];
     var harvesters = creepProto.findAllByRole('harvester');
     var upgraders = creepProto.findAllByRole('upgrader');
     var builders = creepProto.findAllByRole('builder');
-    var spawn = Game.spawns['Mainframe'];
+    console.log('Harvesters: ' + harvesters.length + ', Upgraders: ' + upgraders.length + ', Builders: ' + builders.length);
 
     if (spawn.spawning === null) {
         var bodyParts = creepProto.calculateBodyParts();

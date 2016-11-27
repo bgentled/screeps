@@ -22,7 +22,6 @@ var creep = {
     },
     findAllByRole     : function (role) {
         var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role);
-        console.log('Number of ' + role + ': ' + creeps.length);
         return creeps;
     },
     findNearestSource : function () {
