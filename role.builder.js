@@ -64,7 +64,7 @@ var roleBuilder = {
                 //     console.log(creep.name, 'Bewege mich zum Ziel... ', res);
                 // }
                 // else creep.withdraw(target, RESOURCE_ENERGY);
-                if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) creep.moveTo(target);
+                if (creep.withdraw(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) creep.moveTo(24, 14);
             } else {
                 // PRIORITY 3: Sources
                 console.log(creep.name, 'Nichts zum abzapfen gefunden, gehe harvesten... :(');
