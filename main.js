@@ -16,7 +16,7 @@ module.exports.loop = function () {
     var builders = creepProto.findAllByRole('builder');
     var spawn = Game.spawns['Mainframe'];
 
-    if (spawn.spawning !== null) {
+    if (spawn.spawning === null) {
         // EMERGENCY HARVESTER!
         if (harvesters.length < 2) {
             // Change all roles to harvester
