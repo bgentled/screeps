@@ -24,14 +24,17 @@ var roleUpgrader = {
                 }
             });
             if (target !== null) {
+                creep.say('Reparing');
                 if (!creep.pos.isNearTo(target)) moveTo(target);
                 else creep.repair(target);
             } else {
+                creep.say('Upgrading');
                 if (!creep.pos.inRangeTo(creep.room.controller, 3)) creep.moveTo(creep.room.controller);
                 else creep.upgradeController(creep.room.controller)
             }
         }
         else {
+            creep.say('Energying');
             var creepFunctions = require('creepFunctions');
             creepFunctions.getEnergy(creep, source);
         }
