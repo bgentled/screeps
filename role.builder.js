@@ -13,7 +13,7 @@ var roleBuilder = {
 
         if (creep.memory.building) {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if (targets.length > 0 && creep.memory.forceRepair !== true) {
+            if (targets.length > 0) {
                 // BUILD structures
                 creep.say('Building');
                 target = targets[0];
@@ -22,7 +22,20 @@ var roleBuilder = {
                 }
             } else {
                 // REPAIR structures!
-                creepFunctions.repairNearest(creep);
+                var repairing = creepFunctions.repairNearest(creep);
+
+                if (!repairing) {
+                    // LOAD TOWERS
+                    target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                        filter: function (structure) {
+                            return structure.structureType == STRUCTURE_TOWER && structure.energy < structure.energyCapacity;
+                        }
+                    });
+                    if (target !== null) {
+                        if (!creep.pos.isNearTo(target)) creep.moveTo(target);
+                        else creep.transfer(target);
+                    }
+                }
             }
         }
         else {
