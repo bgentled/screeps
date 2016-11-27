@@ -22,7 +22,7 @@ var roleBuilder = {
                 }
             } else {
                 // REPAIR structures!
-                var repairing = creepFunctions.repairNearest(creep);
+                var repairing = creepFunctions.repairNearest(creep, true);
 
                 if (!repairing) {
                     // LOAD TOWERS
