@@ -22,7 +22,7 @@ var roleHarvester = {
                     Memory.sources[source.id] = {harvesters: []};
                 }
 
-                if (Memory.sources[source.id].harvesters.length < 3) {
+                if (Memory.sources[source.id].harvesters.length < 2) {
                     Memory.sources[source.id].harvesters.push(creep.name);
                     creep.memory.source = source.id;
                     return source;
