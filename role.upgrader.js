@@ -1,23 +1,34 @@
 var roleUpgrader = {
     /** @param {Creep} creep **/
     run: function (creep, source) {
-        if (source === undefined) {
-            var sources = creep.room.find(FIND_SOURCES);
-            source = sources[0];
-        }
-
-        if (creep.memory.upgrading && creep.carry.energy == 0) {
-            creep.memory.upgrading = false;
+        if (creep.memory.working && creep.carry.energy == 0) {
+            creep.memory.working = false;
             creep.say('harvesting');
         }
-        if (!creep.memory.upgrading && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.upgrading = true;
+        if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.working = true;
             creep.say('upgrading');
         }
 
-        if (creep.memory.upgrading) {
-            if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller);
+        if (creep.memory.working) {
+            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: function (structure) {
+                    // nur Strassen: structure.structureType === STRUCTURE_ROAD
+                    switch (structure.structureType) {
+                        case STRUCTURE_ROAD:
+                            if (structure.hits < structure.hitsMax / 1000) return true;
+                            break;
+                        default:
+                            if (structure.hits < structure.hitsMax) return true;
+                    }
+                }
+            });
+            if (target !== null) {
+                if (!creep.pos.isNearTo(target)) moveTo(target);
+                else creep.repair(target);
+            } else {
+                if (!creep.pos.inRangeTo(creep.room.controller, 3)) creep.moveTo(creep.room.controller);
+                else creep.upgradeController(creep.room.controller)
             }
         }
         else {

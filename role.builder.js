@@ -21,6 +21,7 @@ var roleBuilder = {
                 }
             } else {
                 // REPAIR structures!
+                // TODO: ausgliedern
                 target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: function (structure) {
                         // nur Strassen: structure.structureType === STRUCTURE_ROAD
