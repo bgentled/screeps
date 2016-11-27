@@ -40,41 +40,9 @@ var roleBuilder = {
                 }
             }
         }
-        else { // TODO: ausgliedern in getEnergy. 2. Schritt, auslagern in creep.js
-            // PRIORITY 1: Containers
-
-            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
-                }
-            });
-            // PRIORITY 2: Spawns / Extensions
-            if (target === null) {
-                creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                    filter: function (structure) {
-                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
-                    }
-                });
-            }
-            if (target !== null) {
-                if (!creep.pos.isNearTo(target)) {
-                    var res = creep.moveTo(target);
-                }
-                else creep.withdraw(target, RESOURCE_ENERGY);
-            } else {
-
-                // PRIORITY 3: Sources
-                if (source === undefined) {
-                    source = creep.pos.findClosestByRange(RESOURCE_ENERGY);
-                }
-
-                if (source !== null) {
-                    if (!creep.pos.isNearTo(source)) creep.moveTo(source);
-                    else creep.harvest(source);
-                } else {
-                    creep.say('No Energy :(');
-                }
-            }
+        else {
+            var creepFunctions = require('creepFunctions');
+            creepFunctions.getEnergy(creep);
         }
     }
 };

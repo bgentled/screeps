@@ -3,9 +3,9 @@ var tools = require('tools');
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-var creepProto = require('creep');
+var creepFunctions = require('creepFunctions');
 
-var energySource = creepProto.findNearestSource();
+var energySource = creepFunctions.findNearestSource();
 Memory.energySource = energySource.id;
 if (Memory.sources === undefined) Memory.sources = {};
 
@@ -13,13 +13,13 @@ module.exports.loop = function () {
     tools.clearMemory();
 
     var spawn = Game.spawns['Mainframe'];
-    var harvesters = creepProto.findAllByRole('harvester');
-    var upgraders = creepProto.findAllByRole('upgrader');
-    var builders = creepProto.findAllByRole('builder');
+    var harvesters = creepFunctions.findAllByRole('harvester');
+    var upgraders = creepFunctions.findAllByRole('upgrader');
+    var builders = creepFunctions.findAllByRole('builder');
     console.log('Harvesters: ' + harvesters.length + ', Upgraders: ' + upgraders.length + ', Builders: ' + builders.length);
 
     if (spawn.spawning === null) {
-        var bodyParts = creepProto.calculateBodyParts();
+        var bodyParts = creepFunctions.calculateBodyParts();
         // EMERGENCY HARVESTER!
         if (harvesters.length < 2) {
             // Change all roles to harvester
@@ -27,7 +27,7 @@ module.exports.loop = function () {
                 Game.creeps[creepName].memory.role = 'harvester';
             }
             // Create new cheap harvester
-            var newCreep = spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
+            var newCreep = spawn.createCreep(config.emergencyHarvesterBodyParts, undefined, {role: 'harvester'});
             console.log('Spawning new harvester: ' + newCreep);
         } else if (spawn.canCreateCreep(bodyParts) === OK) {
             // NORMAL SPAWNING

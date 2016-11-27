@@ -1,4 +1,3 @@
-var creepProto = require('creep');
 var roleHarvester = {
     /** @param {Creep} creep *
      * @param {Source} source

@@ -1,5 +1,4 @@
 var roleUpgrader = {
-
     /** @param {Creep} creep **/
     run: function (creep, source) {
         if (source === undefined) {
