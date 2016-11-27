@@ -11,35 +11,39 @@ Memory.energySource = energySource.id;
 module.exports.loop = function () {
     tools.clearMemory();
 
-    creepProto.calculateBodyParts();
-
     var harvesters = creepProto.findAllByRole('harvester');
     var upgraders = creepProto.findAllByRole('upgrader');
     var builders = creepProto.findAllByRole('builder');
+    var spawn = Game.spawns['Mainframe'];
 
-    // EMERGENCY HARVESTER!
-    if (harvesters.length < 2) {
-        // Change all roles to harvester
-        for (var creepName in Game.creeps) {
-            Game.creeps[creepName].memory.role = 'harvester';
+    if (spawn.spawning !== null) {
+        // EMERGENCY HARVESTER!
+        if (harvesters.length < 2) {
+            // Change all roles to harvester
+            for (var creepName in Game.creeps) {
+                Game.creeps[creepName].memory.role = 'harvester';
+            }
+            // Create new cheap harvester
+            var newCreep = spawn.createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
+            console.log('Spawning new harvester: ' + newCreep);
+        } else {
+            // NORMAL SPAWNING
+            var bodyParts = creepProto.calculateBodyParts();
+            if (harvesters.length < config.maxHarvesters) {
+                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'harvester'});
+                console.log('Spawning new harvester: ' + newCreep, bodyParts);
+            }
+
+            if (builders.length < config.maxBuilder) {
+                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'builder'});
+                console.log('Spawning new builder: ' + newCreep, bodyParts);
+            }
+
+            if (upgraders.length < config.maxUpgrader) {
+                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'upgrader'});
+                console.log('Spawning new upgrader: ' + newCreep, bodyParts);
+            }
         }
-        // Create new cheap harvester
-        var newName = Game.spawns[config.mainSpawn].createCreep([WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'harvester'});
-        console.log('Spawning new harvester: ' + newName);
-    } else if (harvesters.length < config.maxHarvesters) {
-        // NORMAL HARVESTER
-        var newName = Game.spawns[config.mainSpawn].createCreep(config.harvesterBodyParts, undefined, {role: 'harvester'});
-        console.log('Spawning new harvester: ' + newName);
-    }
-
-    if (upgraders.length < config.maxUpgrader) {
-        var newName = Game.spawns[config.mainSpawn].createCreep(config.upgraderBodyParts, undefined, {role: 'upgrader'});
-        console.log('Spawning new upgrader: ' + newName);
-    }
-
-    if (builders.length < config.maxBuilder) {
-        var newCreep = Game.spawns[config.mainSpawn].createCreep(config.builderBodyparts, undefined, {role: 'builder'});
-        console.log('Spawning new builder: ' + newCreep);
     }
 
     var nearestEnergy = Game.getObjectById(Memory.energySource);

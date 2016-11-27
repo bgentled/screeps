@@ -32,11 +32,13 @@ var creep = {
     calculateBodyParts: function () {
         var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
         var bodyParts = [];
+        // Add Work Parts
         var workParts = Math.floor(maxEnergy / 2 / 100);
         for (var i = 0; i < workParts; i++) {
             bodyParts.push(WORK);
         }
 
+        // Add Carry Parts
         var carryParts = Math.ceil(
             (maxEnergy - (workParts * 100)) / 2 / 50
         );
@@ -44,6 +46,7 @@ var creep = {
             bodyParts.push(CARRY);
         }
 
+        // Add Move Parts
         var moveParts = Math.floor(
             (maxEnergy - (workParts * 100) - (carryParts * 50)) / 50
         );
@@ -51,7 +54,8 @@ var creep = {
             bodyParts.push(MOVE);
         }
 
-        console.log(maxEnergy, JSON.stringify(bodyParts));
+        // Return my beautiful creation >:)
+        return bodyParts;
     }
 };
 
