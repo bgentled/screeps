@@ -1,11 +1,7 @@
 var roleBuilder = {
     /** @param {Creep} creep **/
     run: function (creep, source) {
-        if (source === undefined) {
-            var sources = creep.room.find(FIND_SOURCES);
-            source = sources[0];
-        }
-
+        var target = null;
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('harvesting');
@@ -19,13 +15,13 @@ var roleBuilder = {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if (targets.length > 0 && creep.memory.forceRepair !== true) {
                 // BUILD structures
-                var target = targets[0];
+                target = targets[0];
                 if (creep.build(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
                 }
             } else {
                 // REPAIR structures!
-                var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: function (structure) {
                         // nur Strassen: structure.structureType === STRUCTURE_ROAD
                         switch (structure.structureType) {
@@ -44,7 +40,38 @@ var roleBuilder = {
                 }
             }
         }
-        else {
+        else { // TODO: ausgliedern in getEnergy. 2. Schritt, auslagern in creep.js
+            // PRIORITY 1: Containers
+            target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: function (structure) {
+                    return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
+                }
+            });
+            // PRIORITY 2: Spawns / Extensions
+            if (target === null) {
+                creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: function (structure) {
+                        return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 0;
+                    }
+                });
+            }
+            if (target !== null) {
+                if (!creep.pos.isNearTo(target)) creep.moveTo(target);
+                else creep.withdraw(target, RESOURCE_ENERGY);
+            } else {
+                // PRIORITY 3: Sources
+                if (source === undefined) {
+                    source = creep.pos.findClosestByRange(RESOURCE_ENERGY);
+                }
+
+                if (source !== null) {
+                    if (!creep.pos.isNearTo(source)) creep.moveTo(source);
+                    else creep.harvest(source);
+                } else {
+                    creep.say('No Energy :(');
+                }
+            }
+
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }
