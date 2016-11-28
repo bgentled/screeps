@@ -106,7 +106,7 @@ module.exports.loop = function () {
             }
         }
     }
-    console.log(config);
+    console.log(JSON.stringify(config));
 };
 /**
  IDEEN:
