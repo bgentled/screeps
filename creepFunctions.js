@@ -108,6 +108,7 @@ var creepFunctions = {
         else {
 // NO ENERGY
             if (creep.carry.energy > 0) {
+                // give the Energy back, will be a spawn structure most likely
                 creep.say('Energy--');
                 this.transferEnergy(creep);
             } else {
@@ -130,7 +131,7 @@ var creepFunctions = {
     transferEnergy: function (creep, maxRange) {
         // TODO: creepFunctions findClosestEmptyStore() und findClosestSpawnStructure() schreiben
 
-        if (maxRange === undefined) maxRange = 6;
+        if (maxRange === undefined) maxRange = 4;
         var target;
 
         if (Memory.spawnBlock) {
