@@ -24,7 +24,6 @@ module.exports.loop = function () {
     var builders = creepFunctions.findAllByRole('builder');
     Memory.stats.numBuilders = builders.length;
 
-    console.log('Harvesters: ' + Memory.stats.numHarvesters + ', Upgraders: ' + Memory.stats.numUpgraders + ', Builders: ' + Memory.stats.numBuilders);
     if (Memory.stats.numHarvesters < config.maxHarvesters || Memory.stats.numUpgraders < config.maxUpgrader || Memory.stats.numBuilders < config.maxBuilder) {
         Memory.spawnBlock = true;
     } else Memory.spawnBlock = false;
