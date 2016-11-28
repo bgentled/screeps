@@ -45,7 +45,7 @@ var tools = {
 
         newCreepName: function (role) {
             var name = role.substring(0, 1) + Math.floor(Math.random() * (9999)) + 1;
-            if (Game.creeps.indexOf(name)) return this.newCreepName(role); // get new name, this one already exists
+            if (name in Game.creeps) return this.newCreepName(role); // get new name, this one already exists
             else return name;
         }
         ,
