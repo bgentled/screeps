@@ -144,10 +144,10 @@ var creepFunctions = {
             });
         } else {
 // Find empty store structure
-            store = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            store = creep.pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                        structure.energy < structure.energyCapacity;
+                    return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) &&
+                        _.sum(structure.storage) < structure.storeCapacity
                 }
             });
 
@@ -165,7 +165,7 @@ var creepFunctions = {
                     var secondaryStoreRange = creep.pos.getRangeTo(secondaryStore);
 // Target the nearest possible store
                     target = storeRange <= secondaryStoreRange ? store : secondaryStore;
-                }
+                } else target = store;
             } else {
 // If there is no store, find a spawn structure
                 target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
