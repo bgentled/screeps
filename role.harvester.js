@@ -97,7 +97,15 @@ var roleHarvester = {
             creep.memory.harvesting = false;
         }
         if (creep.memory.harvesting) {
-            creepFunctions.harvest(creep, source);
+            if (creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
+                var dropped = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+                if (!creep.pos.isNearTo(dropped)) {
+                    creep.moveTo(dropped);
+                } else creep.pickup(dropped);
+
+            } else {
+                creepFunctions.harvest(creep, source);
+            }
         } else {
             this.transferEnergy(creep);
         }
