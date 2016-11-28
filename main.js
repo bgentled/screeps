@@ -47,6 +47,7 @@ module.exports.loop = function () {
 
             if (builders.length < config.maxBuilder && !spawning) {
                 spawning = true;
+                console.log('Zu wenige Builder! Habe ' + builders.length + ', brauche ' + config.maxBuilder);
                 tools.createCreep('builder');
             }
 
