@@ -110,9 +110,15 @@ var creepFunctions = {
             var harvesting = false;
             if (!harvesting) {
                 creep.say('No Energy');
-                var spawn = Game.spawns[config.mainSpawn];
-                if (!creep.pos.inRangeTo(spawn, 3))
-                    creep.moveTo(spawn);
+                // park them away from the real work
+                target = creep.pos.findClosestByRange(FIND_FLAGS, {
+                    filter: function (flag) {
+                        return flag.name == 'parking';
+                    }
+                });
+                if (target == null) target = Game.spawns[config.mainSpawn];
+                if (!creep.pos.inRangeTo(target, 2))
+                    creep.moveTo(target);
             }
         }
     }

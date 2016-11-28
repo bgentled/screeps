@@ -108,3 +108,9 @@ module.exports.loop = function () {
         }
     }
 };
+/**
+ IDEEN:
+ - Ziele werden im Memory gespeichert und abgearbeitet
+ -- dazu gehören Energy Sources und Container, aber auch Bauprojekte etc
+
+ */
