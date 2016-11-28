@@ -29,7 +29,6 @@ module.exports.loop = function () {
     } else Memory.spawnBlock = false;
 
     if (spawn.spawning === null) {
-        var bodyParts = creepFunctions.calculateBodyParts();
         // EMERGENCY HARVESTER!
         if (harvesters.length < 2) {
             // Change all roles to harvester
@@ -39,7 +38,7 @@ module.exports.loop = function () {
             // Create new cheap harvester
             var newCreep = spawn.createCreep(config.emergencyHarvesterBodyParts, undefined, {role: 'harvester'});
             console.log('Spawning new harvester: ' + newCreep);
-        } else if (spawn.canCreateCreep(bodyParts) === OK) {
+        } else {
             // NORMAL SPAWNING
             if (harvesters.length < config.maxHarvesters) {
                 tools.createCreep('harvester');
