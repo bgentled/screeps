@@ -40,15 +40,19 @@ module.exports.loop = function () {
             console.log('Spawning new harvester: ' + newCreep);
         } else {
             // NORMAL SPAWNING
-            if (harvesters.length < config.maxHarvesters) {
+            var spawning = false;
+            if (harvesters.length < config.maxHarvesters && !spawning) {
+                spawning = true;
                 tools.createCreep('harvester');
             }
 
-            if (builders.length < config.maxBuilder) {
+            if (builders.length < config.maxBuilder && !spawning) {
+                spawning = true;
                 tools.createCreep('builder');
             }
 
-            if (upgraders.length < config.maxUpgrader) {
+            if (upgraders.length < config.maxUpgrader && !spawning) {
+                spawning = true;
                 tools.createCreep('upgrader');
             }
         }

@@ -81,6 +81,7 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function (creep, source) {
+        var creepFunctions = require('creepFunctions');
         if (source === undefined) {
             //var sources = creep.room.find(FIND_SOURCES);
             //source = sources[0];
@@ -96,8 +97,7 @@ var roleHarvester = {
             creep.say('Transfering');
         }
         if (creep.memory.harvesting) {
-            if (!creep.pos.isNearTo(source)) creep.moveTo(source);
-            else creep.harvest(source);
+            creepFunctions.harvest(creep, source);
         } else {
             this.transferEnergy(creep);
         }

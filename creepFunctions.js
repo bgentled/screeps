@@ -6,8 +6,26 @@ var creepFunctions = {
             console.log("Creep initiated");
         }
     },
-    harvest          : function () {
+    /**
+     * Move to and harvest a source
+     *
+     * @param {Creep} creep The creep
+     * @param {Source} source The source to be harvested. Will find closest, if not defined
+     */
+    harvest          : function (creep, source) {
+        if (source === undefined) {
+            source = creep.pos.findClosestByRange(RESOURCE_ENERGY);
+        }
 
+        if (source !== null) {
+            if (!creep.pos.isNearTo(source)) {
+                creep.say('Harvesting');
+                creep.moveTo(source);
+            }
+            else creep.harvest(source);
+            return true;
+        }
+        return false;
     },
     upgradeController: function (creep, target) {
         if (target === undefined) target = creep.room.controller;
@@ -59,13 +77,13 @@ var creepFunctions = {
     },
 
     getEnergy: function (creep, source) {
-        // PRIORITY 1: Containers
+// PRIORITY 1: Containers
         var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: function (structure) {
                 return (structure.structureType == STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0)
             }
         });
-        // PRIORITY 2: Spawns / Extensions
+// PRIORITY 2: Spawns / Extensions
         if (target === null && !Memory.spawnBlock) {
             target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
@@ -79,15 +97,9 @@ var creepFunctions = {
             }
             else creep.withdraw(target, RESOURCE_ENERGY);
         } else {
-            // PRIORITY 3: Sources
-            if (source === undefined) {
-                source = creep.pos.findClosestByRange(RESOURCE_ENERGY);
-            }
-
-            if (source !== null) {
-                if (!creep.pos.isNearTo(source)) creep.moveTo(source);
-                else creep.harvest(source);
-            } else {
+// PRIORITY 3: Sources
+            var harvesting = creepFunctions.harvest(creep, source);
+            if (!harvesting) {
                 creep.say('No Energy :(');
             }
         }
