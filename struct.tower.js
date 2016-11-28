@@ -10,7 +10,7 @@ var structTower = {
     },
 
     attack: function (enemy) {
-        if (enemy === undefined) enemy = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if (enemy === undefined) enemy = this.tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (enemy instanceof Creep) {
             this.tower.attack(enemy);
         }
