@@ -4,13 +4,13 @@ var tools = {
             var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable - 100;
             var bodyParts = [];
             // Add Work Parts
-            var workParts = Math.ceil(maxEnergy / 2 / 100);
+            var workParts = Math.floor(maxEnergy / 2 / 100);
             for (var i = 0; i < workParts; i++) {
                 bodyParts.push(WORK);
             }
 
             // Add Carry Parts
-            var carryParts = Math.ceil(
+            var carryParts = Math.floor(
                 (maxEnergy - (workParts * 100)) / 2 / 50
             );
             for (var i = 0; i < carryParts; i++) {
