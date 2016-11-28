@@ -110,6 +110,9 @@ var creepFunctions = {
             var harvesting = false;
             if (!harvesting) {
                 creep.say('No Energy :(');
+                var spawn = Game.spawns[config.mainSpawn];
+                if (!creep.pos.inRangeTo(spawn, 3))
+                    creep.moveTo(spawn);
             }
         }
     }
