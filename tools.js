@@ -1,4 +1,53 @@
+var config = require('config');
 var tools = {
+    calculateBodyParts: function () {
+        var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
+        var bodyParts = [];
+        // Add Work Parts
+        var workParts = Math.ceil(maxEnergy / 2 / 100);
+        for (var i = 0; i < workParts; i++) {
+            bodyParts.push(WORK);
+        }
+
+        // Add Carry Parts
+        var carryParts = Math.ceil(
+            (maxEnergy - (workParts * 100)) / 2 / 50
+        );
+        for (var i = 0; i < carryParts; i++) {
+            bodyParts.push(CARRY);
+        }
+
+        // Add Move Parts
+        var moveParts = Math.floor(
+            (maxEnergy - (workParts * 100) - (carryParts * 50)) / 50
+        );
+        for (var i = 0; i < moveParts; i++) {
+            bodyParts.push(MOVE);
+        }
+
+        // Return my beautiful creation >:)
+        return bodyParts;
+    },
+
+    createCreep(role, spawn){
+        var bodyParts = this.calculateBodyParts();
+        var name;
+        var newCreep;
+
+        if (spawn === undefined) spawn = Game.spawns[config.mainSpawn];
+
+        name = this.newCreepName(role);
+        newCreep = spawn.createCreep(bodyParts, undefined, {role: role});
+        console.log('Spawning new ' + role + ': ' + newCreep + ';   ', bodyParts);
+        return newCreep;
+    },
+
+    newCreepName: function (role) {
+        var name = role.substring(0, 1) + Math.floor(Math.random() * (9999)) + 1;
+        if (Game.creeps.indexOf(name)) return this.newCreepName(role); // get new name, this one already exists
+        else return name;
+    },
+
     clearMemory       : function () {
         for (var name in Memory.creeps) {
             if (!Game.creeps[name]) {

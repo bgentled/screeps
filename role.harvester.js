@@ -56,9 +56,8 @@ var roleHarvester = {
     },
 
     transferEnergy: function (creep) {
-        var target = null;
         // PRIORITY 1: Fill all Spawns & Extensions
-        target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (structure) {
                 return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                     structure.energy < structure.energyCapacity;

@@ -91,35 +91,6 @@ var creepFunctions = {
                 creep.say('No Energy :(');
             }
         }
-    },
-
-    calculateBodyParts: function () {
-        var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
-        var bodyParts = [];
-        // Add Work Parts
-        var workParts = Math.ceil(maxEnergy / 2 / 100);
-        for (var i = 0; i < workParts; i++) {
-            bodyParts.push(WORK);
-        }
-
-        // Add Carry Parts
-        var carryParts = Math.ceil(
-            (maxEnergy - (workParts * 100)) / 2 / 50
-        );
-        for (var i = 0; i < carryParts; i++) {
-            bodyParts.push(CARRY);
-        }
-
-        // Add Move Parts
-        var moveParts = Math.floor(
-            (maxEnergy - (workParts * 100) - (carryParts * 50)) / 50
-        );
-        for (var i = 0; i < moveParts; i++) {
-            bodyParts.push(MOVE);
-        }
-
-        // Return my beautiful creation >:)
-        return bodyParts;
     }
 };
 

@@ -42,18 +42,15 @@ module.exports.loop = function () {
         } else if (spawn.canCreateCreep(bodyParts) === OK) {
             // NORMAL SPAWNING
             if (harvesters.length < config.maxHarvesters) {
-                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'harvester'});
-                console.log('Spawning new harvester: ' + newCreep + ';   ', bodyParts);
+                tools.createCreep('harvester');
             }
 
             if (builders.length < config.maxBuilder) {
-                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'builder'});
-                console.log('Spawning new builder: ' + newCreep + ';   ', bodyParts);
+                tools.createCreep('builder');
             }
 
             if (upgraders.length < config.maxUpgrader) {
-                var newCreep = spawn.createCreep(bodyParts, undefined, {role: 'upgrader'});
-                console.log('Spawning new upgrader: ' + newCreep + ';   ', bodyParts);
+                tools.createCreep('upgrader');
             }
         }
     }
