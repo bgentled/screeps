@@ -1,7 +1,7 @@
 var config = require('config');
 var tools = {
         calculateBodyParts: function () {
-            var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable - 100;
+            var maxEnergy = Game.spawns[config.mainSpawn].room.energyCapacityAvailable;
             var bodyParts = [];
             // Add Work Parts
             var workParts = Math.floor(maxEnergy / 2 / 100);
