@@ -100,6 +100,7 @@ var roleHarvester = {
             if (creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
                 var dropped = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
                 if (!creep.pos.isNearTo(dropped)) {
+                    creep.say('Gathering');
                     creep.moveTo(dropped);
                 } else creep.pickup(dropped);
 
