@@ -64,6 +64,9 @@ module.exports.loop = function () {
         }
     }
 
+    /*
+     INITIALIZE CREEPS
+     */
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
         if (creep.memory.role == 'harvester') {
@@ -76,13 +79,28 @@ module.exports.loop = function () {
             roleBuilder.run(creep, source);
         }
     }
+
+    /*
+     INITIALIZE TOWERS, if necessary
+     */
+    var mainRoom = spawn.room;
+    var enemies = mainRoom.find(FIND_HOSTILE_CREEPS);
+    if (enemies.length > 0) {
+        // We are under attack!
+        var attacker = enemies[0].owner.username;
+        Game.notify('Angriff in Raum ' + mainRoom + ' durch ' + attacker + '!!');
+        var towers = mainRoom.find(FIND_MY_STRUCTURES, {
+            filter: function (structure) {
+                return structure.structureType == STRUCTURE_TOWER;
+            }
+        });
+        if (towers.length > 0) {
+            var structTower = require('struct.tower');
+            var tower;
+            for (var i in towers) {
+                tower = structTower.init(towers[i]);
+                tower.attack();
+            }
+        }
+    }
 };
-
-/*
- Ideen:
- Energy Sources auf Harvester verteilen
-
- Container bei Energy Sources bieten mehr Fläche zum Abholen
- Nur Harvester an Energy Sources, ca. 3 per Source
- Alle anderen gehen zu Containern
- */
