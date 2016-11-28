@@ -12,7 +12,6 @@ if (Memory.stats === undefined) Memory.stats = {};
 if (Memory.spawnBlock === undefined) Memory.spawnBlock = false;
 
 module.exports.loop = function () {
-    tools.clearMemory();
     var spawn = Game.spawns['Mainframe'];
 
     var harvesters = creepFunctions.findAllByRole('harvester');
@@ -24,9 +23,9 @@ module.exports.loop = function () {
     var builders = creepFunctions.findAllByRole('builder');
     Memory.stats.numBuilders = builders.length;
 
-    if (Memory.stats.numHarvesters < config.maxHarvesters || Memory.stats.numUpgraders < config.maxUpgrader || Memory.stats.numBuilders < config.maxBuilder) {
-        Memory.spawnBlock = true;
-    } else Memory.spawnBlock = false;
+    tools.clearMemory();
+    // Block energy withdrawal from spawn / extension structures, if necessary
+    Memory.spawnBlock = (Memory.stats.numHarvesters < config.maxHarvesters || Memory.stats.numUpgraders < config.maxUpgrader || Memory.stats.numBuilders < config.maxBuilder);
 
     if (spawn.spawning === null) {
         // EMERGENCY HARVESTER!
