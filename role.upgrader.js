@@ -3,7 +3,6 @@ var roleUpgrader = {
     run: function (creep, source) {
         if (creep.memory.working && creep.carry.energy == 0) {
             creep.memory.working = false;
-            creep.say('Harvesting');
         }
         if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
             creep.memory.working = true;

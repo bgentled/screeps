@@ -99,6 +99,7 @@ var creepFunctions = {
         }
         if (target !== null) {
             if (!creep.pos.isNearTo(target)) {
+                creep.say('Energy++');
                 creep.moveTo(target);
             }
             else creep.withdraw(target, RESOURCE_ENERGY);

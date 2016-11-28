@@ -56,6 +56,7 @@ var roleHarvester = {
     },
 
     transferEnergy: function (creep) {
+        // TODO: Nach creepFunctions bewegen
         // PRIORITY 1: Fill all Spawns & Extensions
         var target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (structure) {
@@ -74,7 +75,10 @@ var roleHarvester = {
         }
 
         if (target !== null) {
-            if (!creep.pos.isNearTo(target)) creep.moveTo(target);
+            if (!creep.pos.isNearTo(target)) {
+                creep.say('Energy--');
+                creep.moveTo(target);
+            }
             else creep.transfer(target, RESOURCE_ENERGY);
         } else creep.say('No Target :(');
     },
@@ -83,18 +87,14 @@ var roleHarvester = {
     run: function (creep, source) {
         var creepFunctions = require('creepFunctions');
         if (source === undefined) {
-            //var sources = creep.room.find(FIND_SOURCES);
-            //source = sources[0];
             source = this.getSource(creep);
         }
 
         if (!creep.memory.harvesting && creep.carry.energy == 0) {
             creep.memory.harvesting = true;
-            creep.say('Harvesting');
         }
         if (creep.memory.harvesting && creep.carry.energy == creep.carryCapacity) {
             creep.memory.harvesting = false;
-            creep.say('Transfering');
         }
         if (creep.memory.harvesting) {
             creepFunctions.harvest(creep, source);

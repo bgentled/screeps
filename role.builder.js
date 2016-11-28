@@ -5,7 +5,6 @@ var roleBuilder = {
         var target = null;
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('Energy++');
         }
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
@@ -15,9 +14,9 @@ var roleBuilder = {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if (targets.length > 0) {
                 // BUILD structures
-                creep.say('Building');
                 target = targets[0];
                 if (creep.build(target) == ERR_NOT_IN_RANGE) {
+                    creep.say('Building');
                     creep.moveTo(target);
                 }
             } else {
