@@ -103,9 +103,11 @@ var creepFunctions = {
                 creep.moveTo(target);
             }
             else creep.withdraw(target, RESOURCE_ENERGY);
-        } else {
+        }
+        else {
 // PRIORITY 3: Sources
-            var harvesting = creepFunctions.harvest(creep, source);
+            //var harvesting = creepFunctions.harvest(creep, source);
+            var harvesting = false;
             if (!harvesting) {
                 creep.say('No Energy :(');
             }
