@@ -91,13 +91,11 @@ var creepFunctions = {
         });
 // PRIORITY 2: Spawns / Extensions
         if (target === null && !Memory.spawnBlock) {
-            console.log('Suche in Strukturen nach Energie...');
             target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
                     return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 10;
                 }
             });
-            console.log('Gefunden: ', target);
         }
         if (target !== null) {
             if (!creep.pos.isNearTo(target)) {
