@@ -13,11 +13,7 @@ var roleUpgrader = {
         if (creep.memory.working) {
             var repairing = creepFunctions.repairNearest(creep);
             if (!repairing) {
-                if (!creep.pos.inRangeTo(creep.room.controller, 3)) {
-                    creep.say('Upgrading');
-                    creep.moveTo(creep.room.controller);
-                }
-                else creep.upgradeController(creep.room.controller)
+                creepFunctions.upgradeController(creep);
             }
         }
         else {

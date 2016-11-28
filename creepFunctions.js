@@ -1,18 +1,23 @@
 var config = require('config');
 var creepFunctions = {
-    init   : function (creep) {
+    init             : function (creep) {
         if (creep instanceof Creep) {
             this.creep = creep;
             console.log("Creep initiated");
         }
     },
-    harvest: function () {
+    harvest          : function () {
 
     },
-    upgrade: function () {
-
+    upgradeController: function (creep, target) {
+        if (target === undefined) target = creep.room.controller;
+        if (!creep.pos.inRangeTo(target, 3)) {
+            creep.say('Upgrading');
+            creep.moveTo(target);
+        }
+        else creep.upgradeController(target)
     },
-    repair : function (creep, target) {
+    repair           : function (creep, target) {
         if (!creep.pos.inRangeTo(target, 3)) {
             creep.say('Reparing');
             creep.moveTo(target);
