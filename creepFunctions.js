@@ -103,6 +103,7 @@ var creepFunctions = {
                 creep.moveTo(target);
             }
             else creep.withdraw(target, RESOURCE_ENERGY);
+            return true;
         }
         else {
 // PRIORITY 3: Sources
@@ -117,8 +118,8 @@ var creepFunctions = {
                     }
                 });
                 if (target == null) target = Game.spawns[config.mainSpawn];
-                if (!creep.pos.inRangeTo(target, 2))
-                    creep.moveTo(target);
+                if (!creep.pos.inRangeTo(target, 2)) creep.moveTo(target);
+                return false;
             }
         }
     }

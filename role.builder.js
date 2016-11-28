@@ -44,7 +44,10 @@ var roleBuilder = {
             }
         }
         else {
-            creepFunctions.getEnergy(creep, source);
+            var foundEnergy = creepFunctions.getEnergy(creep, source);
+            if (!foundEnergy && creep.carry.energy > 0) {
+                creep.memory.building = true;
+            }
         }
     }
 };
