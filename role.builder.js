@@ -11,14 +11,13 @@ var roleBuilder = {
         }
 
         if (creep.memory.building) {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if (targets.length > 0) {
+            var target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+            if (target !== null) {
                 // BUILD structures
-                target = targets[0];
-                if (creep.build(target) == ERR_NOT_IN_RANGE) {
+                if (!creep.pos.inRangeTo(target, 3)) {
                     creep.say('Building');
                     creep.moveTo(target);
-                }
+                } else creep.build(target);
             } else {
                 // REPAIR structures!
                 var repairing = creepFunctions.repairNearest(creep, true);
