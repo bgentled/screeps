@@ -54,6 +54,12 @@ var creepFunctions = {
                         }
                         return false;
                         break;
+                    case STRUCTURE_RAMPART:
+                        if (repairWalls) {
+                            if (structure.hits < structure.hitsMax / 5) return true;
+                        }
+                        return false;
+                        break;
                     default:
                         if (structure.hits < structure.hitsMax / 3) return true;
                 }
