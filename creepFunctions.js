@@ -177,7 +177,7 @@ var creepFunctions = {
             }
         }
 
-        if (target !== null && targe !== undefined) {
+        if (target !== null && target !== undefined) {
             if (!creep.pos.isNearTo(target)) {
                 creep.say('Energy--');
                 creep.moveTo(target);
