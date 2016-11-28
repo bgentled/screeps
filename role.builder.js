@@ -37,6 +37,9 @@ var roleBuilder = {
                             creep.moveTo(target);
                         }
                         else creep.transfer(target, RESOURCE_ENERGY);
+                    } else {
+                        // UPGRADE if nothing to do
+                        creepFunctions.upgradeController(creep);
                     }
                 }
             }
