@@ -179,6 +179,7 @@ var creepFunctions = {
 
         if (target !== null) {
             if (!creep.pos.isNearTo(target)) {
+                console.log(creep.name, ' geht zu ', target.id);
                 creep.say('Energy--');
                 creep.moveTo(target);
             }
