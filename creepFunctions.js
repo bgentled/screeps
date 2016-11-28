@@ -93,7 +93,7 @@ var creepFunctions = {
         if (target === null && !Memory.spawnBlock) {
             target = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: function (structure) {
-                    return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy > 10;
+                    return (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.energy >= 30;
                 }
             });
         }
