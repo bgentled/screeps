@@ -37,7 +37,7 @@ var tools = {
             if (spawn === undefined) spawn = Game.spawns[config.mainSpawn];
             if (spawn.canCreateCreep(bodyParts) === OK) {
                 name = this.newCreepName(role);
-                newCreep = spawn.createCreep(bodyParts, undefined, {role: role});
+                newCreep = spawn.createCreep(bodyParts, name, {role: role});
                 console.log('Spawning new ' + role + ': ' + newCreep + ';   ', bodyParts);
             }
             return newCreep;
@@ -45,7 +45,7 @@ var tools = {
 
         newCreepName: function (role) {
             var name = role.substring(0, 1) + Math.floor(Math.random() * (9999)) + 1;
-            if (name in Game.creeps) return this.newCreepName(role); // get new name, this one already exists
+            if (Game.creeps[name]) return this.newCreepName(role); // get new name, this one already exists
             else return name;
         }
         ,
