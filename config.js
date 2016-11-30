@@ -1,8 +1,8 @@
 var config = {
     mainSpawn                  : 'Mainframe',
-    maxHarvesters              : 5,
+    maxHarvesters              : 4,
     maxBuilder                 : 1,
-    maxUpgrader                : 3,
+    maxUpgrader                : 4,
     emergencyHarvesterBodyParts: [WORK, CARRY, CARRY, MOVE, MOVE]
 };
 
