@@ -18,7 +18,7 @@ var structTower = {
 
     /** @param {StructureTower} tower*/
     run: function (tower) {
-
+  
     }
 };
 
